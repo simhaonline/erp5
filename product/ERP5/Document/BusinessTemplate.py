@@ -937,7 +937,10 @@ class ObjectTemplateItem(BaseTemplateItem):
       else:
         # FIXME: Why not use the importXML function directly? Are there any BT5s
         # with actual .zexp files on the wild?
-        obj = connection.importFile(file_obj, customImporters=customImporters)
+        try:
+          obj = connection.importFile(file_obj, customImporters=customImporters)
+        except ImportError:
+          import pdb; pdb.set_trace()
       self._objects[obj_key] = obj
 
       data = getTransactionalVariable().get(transactional_variable_obj_key)
